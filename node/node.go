@@ -84,7 +84,7 @@ func (n *Node) ListOrders(ctx context.Context) error {
 		return err
 	}
 	for _, o := range orders {
-		b, err1 := json.MarshalIndent(o, "", "\t")
+		b, err1 := json.MarshalIndent(o, "", "  ")
 		if err1 != nil {
 			n.Sugar.Errorf("marshal order error: %s", err1)
 			continue
@@ -169,6 +169,20 @@ func (n *Node) CancelOrder(ctx context.Context, symbol, order string) error {
 	return nil
 }
 
-func (n *Node) TxHistory(ctx context.Context) error {
+func (n *Node) TxHistory(ctx context.Context, symbol, order string) error {
+	n.Sugar.Infof("get %s trade history, orderId %s", symbol, order)
+	trades, err := n.Gate.MyTradeHistory(symbol)
+	if err != nil {
+		return err
+	}
+	for _, t := range trades {
+		b, err1 := json.MarshalIndent(t, "", "  ")
+		if err1 != nil {
+			n.Sugar.Errorf("marshal trade error: %s", err1)
+			continue
+		}
+		n.Sugar.Info(string(b))
+		fmt.Println(string(b))
+	}
 	return nil
 }

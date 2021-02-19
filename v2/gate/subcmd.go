@@ -55,6 +55,10 @@ var (
 		Action: txAction,
 		Name:   "tx",
 		Usage:  "get transaction history",
+		Flags: []cli.Flag{
+			utils.SymbolFlag,
+			utils.OrderFlag,
+		},
 	}
 )
 
@@ -175,6 +179,10 @@ func txAction(ctx *cli.Context) error {
 		return err
 	}
 	defer n.Close(ctx.Context)
+
+	if err = n.TxHistory(ctx.Context, ctx.String(utils.SymbolFlag.Name), ctx.String(utils.OrderFlag.Name)); err != nil {
+		return err
+	}
 
 	return nil
 }

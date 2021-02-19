@@ -107,8 +107,8 @@ github.com/xdg/stringprep v0.0.0-20180714160509-73f8eece6fdc h1:n+nNi93yXLkJvKwX
 github.com/xdg/stringprep v0.0.0-20180714160509-73f8eece6fdc/go.mod h1:Jhud4/sHMO4oL310DaZAKk9ZaJ08SJfe+sJh0HrGL1Y=
 github.com/xyths/dingtalk-webhook v0.1.0 h1:XowRDJH2pxCS8cW9wRlD+ZRN23GdgYZNFFWw7Lxy2Dw=
 github.com/xyths/dingtalk-webhook v0.1.0/go.mod h1:MDesF3tQxWfkv7zBlAtWPVrG1hyVF6Sa5HpOjzsVD1k=
-github.com/xyths/hs v0.28.11 h1:lf9jTenE+2Gu5TTvJKm/9XwGlzleWU0YDDTH9wPANtg=
-github.com/xyths/hs v0.28.11/go.mod h1:ugeO0EsUCfspEVlAZ6pbndKa9yObJVhbuJtxlS1z0AQ=
+github.com/xyths/hs v0.28.14 h1:e4wzYh9ECKnGHL9HZSP38RNrrMk5+rRUiM7wOsa2i7E=
+github.com/xyths/hs v0.28.14/go.mod h1:ugeO0EsUCfspEVlAZ6pbndKa9yObJVhbuJtxlS1z0AQ=
 go.mongodb.org/mongo-driver v1.4.1 h1:38NSAyDPagwnFpUA/D5SFgbugUYR3NzYRNa4Qk9UxKs=
 go.mongodb.org/mongo-driver v1.4.1/go.mod h1:llVBH2pkj9HywK0Dtdt6lDikOjFLbceHVu/Rc0iMKLs=
 go.uber.org/atomic v1.6.0 h1:Ezj3JGmsOnG1MoRWQkPBsKLe9DwWD9QeXzTRzzldNVk=
