@@ -12,6 +12,7 @@ import (
 	"strings"
 )
 
+// Agent is for v4 API, Node is for v2 API.
 type Node struct {
 	Config Config
 	Sugar  *zap.SugaredLogger
@@ -84,7 +85,7 @@ func (n *Node) ListOrders(ctx context.Context) error {
 		return err
 	}
 	for _, o := range orders {
-		b, err1 := json.MarshalIndent(o, "", "\t")
+		b, err1 := json.MarshalIndent(o, "", "  ")
 		if err1 != nil {
 			n.Sugar.Errorf("marshal order error: %s", err1)
 			continue
@@ -169,6 +170,21 @@ func (n *Node) CancelOrder(ctx context.Context, symbol, order string) error {
 	return nil
 }
 
-func (n *Node) TxHistory(ctx context.Context) error {
+func (n *Node) TxHistory(ctx context.Context, symbol, order string) error {
+	n.Sugar.Infof("get %s trade history, orderId %s", symbol, order)
+	orderId := convert.StrToUint64(order)
+	trades, err := n.Gate.MyTradeHistory(symbol, orderId)
+	if err != nil {
+		return err
+	}
+	for _, t := range trades {
+		b, err1 := json.MarshalIndent(t, "", "  ")
+		if err1 != nil {
+			n.Sugar.Errorf("marshal trade error: %s", err1)
+			continue
+		}
+		n.Sugar.Info(string(b))
+		fmt.Println(string(b))
+	}
 	return nil
 }

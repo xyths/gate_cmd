@@ -23,6 +23,9 @@ var (
 				Action: listAction,
 				Name:   "list",
 				Usage:  "list open orders",
+				Flags: []cli.Flag{
+					utils.SymbolFlag,
+				},
 			},
 			{
 				Action: placeAction,
@@ -68,12 +71,13 @@ func balanceAction(ctx *cli.Context) error {
 	if err := hs.ParseJsonConfig(configFile, &cfg); err != nil {
 		return err
 	}
-	n, _ := node.NewNode(cfg)
+	n, _ := node.NewAgent(cfg)
 	err := n.Init(ctx.Context)
 	if err != nil {
 		return err
 	}
 	defer n.Close(ctx.Context)
+
 	if err = n.Balance(ctx.Context); err != nil {
 		return err
 	}
@@ -86,7 +90,7 @@ func orderAction(ctx *cli.Context) error {
 	if err := hs.ParseJsonConfig(configFile, &cfg); err != nil {
 		return err
 	}
-	n, _ := node.NewNode(cfg)
+	n, _ := node.NewAgent(cfg)
 	err := n.Init(ctx.Context)
 	if err != nil {
 		return err
@@ -102,14 +106,14 @@ func listAction(ctx *cli.Context) error {
 	if err := hs.ParseJsonConfig(configFile, &cfg); err != nil {
 		return err
 	}
-	n, _ := node.NewNode(cfg)
+	n, _ := node.NewAgent(cfg)
 	err := n.Init(ctx.Context)
 	if err != nil {
 		return err
 	}
 	defer n.Close(ctx.Context)
 
-	if err = n.ListOrders(ctx.Context); err != nil {
+	if err = n.ListOrders(ctx.Context, ctx.String(utils.SymbolFlag.Name)); err != nil {
 		return err
 	}
 
@@ -122,7 +126,7 @@ func placeAction(ctx *cli.Context) error {
 	if err := hs.ParseJsonConfig(configFile, &cfg); err != nil {
 		return err
 	}
-	n, _ := node.NewNode(cfg)
+	n, _ := node.NewAgent(cfg)
 	err := n.Init(ctx.Context)
 	if err != nil {
 		return err
@@ -153,14 +157,14 @@ func cancelAction(ctx *cli.Context) error {
 	if err := hs.ParseJsonConfig(configFile, &cfg); err != nil {
 		return err
 	}
-	n, _ := node.NewNode(cfg)
+	n, _ := node.NewAgent(cfg)
 	err := n.Init(ctx.Context)
 	if err != nil {
 		return err
 	}
 	defer n.Close(ctx.Context)
 
-	if err = n.CancelOrder(ctx.Context, ctx.String(utils.SymbolFlag.Name), ctx.String(utils.OrderFlag.Name)); err != nil {
+	if _, err = n.CancelOrder(ctx.Context, ctx.String(utils.SymbolFlag.Name), ctx.String(utils.OrderFlag.Name)); err != nil {
 		return err
 	}
 
@@ -173,7 +177,7 @@ func txAction(ctx *cli.Context) error {
 	if err := hs.ParseJsonConfig(configFile, &cfg); err != nil {
 		return err
 	}
-	n, _ := node.NewNode(cfg)
+	n, _ := node.NewAgent(cfg)
 	err := n.Init(ctx.Context)
 	if err != nil {
 		return err

@@ -17,7 +17,7 @@ func init() {
 	app = &cli.App{
 		Name:    filepath.Base(os.Args[0]),
 		Usage:   "Gate.io Command Line Tool, use v2 RESTful API",
-		Version: "0.1.17",
+		Version: "0.1.23",
 	}
 
 	app.Commands = []*cli.Command{
